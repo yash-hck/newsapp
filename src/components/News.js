@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default class News extends Component {
+  apiKey = '43f0eb807d8145e9862f6a525b80f51e';
   static defaultProps = {
     country: "in",
     pageSize: 5,
@@ -36,7 +37,7 @@ export default class News extends Component {
 
   async updateNews() {
     this.props.setProgress(10);
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=43f0eb807d8145e9862f6a525b80f51e&page=1&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=1&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
 
@@ -56,7 +57,7 @@ export default class News extends Component {
 
   async componentDidMount() {
     // let url =
-    //   `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=43f0eb807d8145e9862f6a525b80f51e&page=1&pageSize=${this.props.pageSize}`;
+    //   `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=1&pageSize=${this.props.pageSize}`;
     //   this.setState({loading:true});
     //   let data = await fetch(url);
 
@@ -77,7 +78,7 @@ export default class News extends Component {
 
   fetchMoreData = async ()=> {
     this.setState({page : this.state.page + 1});
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=43f0eb807d8145e9862f6a525b80f51e&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     let data = await fetch(url);
 
     let parseddata = await data.json();
