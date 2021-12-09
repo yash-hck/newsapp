@@ -6,9 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 const News = (props) => {
 
-  // document.title = `${this.capitalizeFirstLetter(
-  //   props.category
-  // )} - NewsMonk`;
+  
   
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,15 +34,19 @@ const News = (props) => {
   }
 
   useEffect(() => {
+    document.title = `${capitalizeFirstLetter(
+      props.category
+    )} - NewsMonk`;
     updateNews();
+    
   }, [])
 
   const fetchMoreData = async ()=> {
     //this.setState({page : this.state.page + 1});
-    setPage(page + 1);
-    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`;
+    
+    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`;
     let data = await fetch(url);
-
+    setPage(page + 1);
     let parseddata = await data.json();
     console.log(parseddata);
     setArticles(articles.concat(parseddata.articles));
@@ -55,7 +57,7 @@ const News = (props) => {
   
     return (
       <>
-        <h1 className="text-center my-3" style={{ margin: "35px 0px" }}>
+        <h1 className="text-center" style={{ margin: "90px auto 40px" }}>
           News Monk - {capitalizeFirstLetter(props.category)} Top
           Headlines
         </h1>
